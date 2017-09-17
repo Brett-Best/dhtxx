@@ -1,3 +1,4 @@
-dhttest
-HD44780CharacterLCD.swift
-SwiftyGPIO.swift
+.DS_Store
+/.build
+/Packages
+/*.xcodeproj
