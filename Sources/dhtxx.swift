@@ -87,7 +87,9 @@ public class DHT {
 		// but only marginally, it still fails ALOT -- A. LOT.  Sampling every 5s I can
 		// usually get a good reading within the past 60s, many times more often than that
 		// but def not every time.
-		setMaxPriority()
+
+		// luisdelarosa: I found that this failed all the time on Raspberry Pi 3, so commenting it for now until I understand what was intended here.
+		// setMaxPriority()
 		
 		// Set pin low
 		pin.value = 0
