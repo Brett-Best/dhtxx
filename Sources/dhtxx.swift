@@ -16,7 +16,7 @@ public class DHT {
 	private var pin: GPIO
 	private let sensor: SupportedSensor
 	
-	init(pin: GPIO, for sensor: SupportedSensor) {
+	public init(pin: GPIO, for sensor: SupportedSensor) {
 		self.pin = pin
 		self.sensor = sensor
 	}
@@ -47,7 +47,7 @@ public class DHT {
 		return String(padd + str)
 	}
 
-	func read(debug: Bool = false) throws -> (temperature: Double, humidity: Double) {
+	public func read(debug: Bool = false) throws -> (temperature: Double, humidity: Double) {
 
 		if debug { print("----------------------------------")}
 
