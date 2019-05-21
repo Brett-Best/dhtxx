@@ -98,7 +98,7 @@ public class DHT {
 		// but def not every time.
 
 		// luisdelarosa: I found that this failed all the time on Raspberry Pi 3, so commenting it for now until I understand what was intended here.
-		// setMaxPriority()
+    setMaxPriority()
 		
 		// Set pin low
 		pin.value = false
