@@ -1,4 +1,9 @@
-import Glibc
+#if os(Linux)
+  import Glibc
+#else
+  import Darwin.C
+#endif
+
 import Foundation
 import SwiftyGPIO
 
@@ -13,10 +18,10 @@ public enum SupportedSensor {
 }
 
 public class DHT {
-	private var pin: GPIO
+	private var pin: GPIOInterface
 	private let sensor: SupportedSensor
 	
-	public init(pin: GPIO, for sensor: SupportedSensor) {
+	public init(pin: GPIOInterface, for sensor: SupportedSensor) {
 		self.pin = pin
 		self.sensor = sensor
 	}
@@ -43,7 +48,7 @@ public class DHT {
 	
 	func binaryString(for number: Int) -> String {
 		let str = String(number, radix:2) //binary base
-		let padd = String(repeating: "0", count: (8 - str.characters.count)) //repeat a character
+		let padd = String(repeating: "0", count: (8 - str.count)) //repeat a character
 		return String(padd + str)
 	}
 
@@ -66,9 +71,9 @@ public class DHT {
 		var highPulseTimes = [Int](repeating: 0, count:kDHT_PULSES + 1)
 		
 		// Set pin to output
-		pin.direction = .OUT
+		pin.direction = .output
 		
-		var prevValue = 1
+		var prevValue = true
 		var lowpulse = 0
 		var highpulse = 0
 
@@ -92,7 +97,7 @@ public class DHT {
 		// setMaxPriority()
 		
 		// Set pin low
-		pin.value = 0
+		pin.value = false
 		
 		usleep(10000)
 
@@ -100,7 +105,7 @@ public class DHT {
 		// self.pin.value = 1
 
 		// Set pin to in
-		pin.direction = .IN
+		pin.direction = .input
 		
 		// This is tough -- most other code I read had while loops, with
 		// timeouts -- i took a different approach and just spin in a for-loop
@@ -112,7 +117,7 @@ public class DHT {
 			if pin.value != prevValue {
 				gettimeofday(&endTime,nil)
 				let pulseTime = endTime.tv_usec - startTime.tv_usec
-				if prevValue == 0 {
+				if prevValue == false {
 					lowPulseTimes[lowpulse] = Int(pulseTime)
 					lowpulse = lowpulse + 1
 				} else {
