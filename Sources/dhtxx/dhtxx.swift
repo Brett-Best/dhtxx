@@ -27,19 +27,23 @@ public class DHT {
 	}
 
 	func setMaxPriority() {
+    #if os(Linux)
 		var sched: sched_param = sched_param()
 		// Use FIFO scheduler with highest priority for the lowest chance of the kernel context switching.
 		sched.__sched_priority = sched_get_priority_max(SCHED_FIFO)
 		if (sched_setscheduler(0, SCHED_FIFO, &sched) != 0) {
 			print("ERROR")
 		}
+    #endif
 	}
 
 	func setDefaultPriority() {
+    #if os(Linux)
 		var sched: sched_param = sched_param()
 		// Go back to default scheduler with default 0 priority.
 		sched.__sched_priority = 0
 		sched_setscheduler(0, SCHED_OTHER, &sched)
+    #endif
 	}
 	
 	func binaryString(for number: UInt8) -> String {
