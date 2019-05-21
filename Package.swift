@@ -8,7 +8,7 @@ let package = Package(
     .library(name: "dhtxx", targets: ["dhtxx"])
   ],
   dependencies: [
-    .package(url: "https://github.com/uraimo/SwiftyGPIO.git", from: "2.0.0-beta1")
+    .package(url: "https://github.com/uraimo/SwiftyGPIO.git", .branch("next_release"))
   ],
   targets: [
     .target(name: "dhtxx", dependencies: ["SwiftyGPIO"])
