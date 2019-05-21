@@ -1,9 +1,10 @@
-// swift-tools-version:3.1
+// swift-tools-version:5.0
 
 import PackageDescription
 
 let package = Package(
-    name: "dhtxx",
-    dependencies: [
-        .Package(url: "https://github.com/uraimo/SwiftyGPIO.git", majorVersion: 0)    ]
+  name: "dhtxx",
+  dependencies: [
+    .package(url: "https://github.com/uraimo/SwiftyGPIO.git", from: "2.0.0-beta1")
+  ]
 )
